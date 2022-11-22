@@ -102,36 +102,22 @@ onMounted(() => {
   }
 })
 
-function average(numbers: number[]) {
-  return Math.round(numbers.reduce((a, b) => a + b) / numbers.length)
-}
-
-function handleTouchStart(event: TouchEvent) {
-  const touches = Array.from(event.touches)
-  const targetX = average(
-    touches.map(item => item.clientX * window.devicePixelRatio),
-  )
-  const targetY = average(
-    touches.map(item => item.clientY * window.devicePixelRatio),
-  )
+function handleTouchStart(event: PointerEvent) {
+  const targetX = event.clientX * window.devicePixelRatio
+  const targetY = event.clientY * window.devicePixelRatio
   state.targetX = targetX
   state.targetY = targetY
   state.running = true
 }
 
-function handleTouchMove(event: TouchEvent) {
-  const touches = Array.from(event.touches)
-  const targetX = average(
-    touches.map(item => item.clientX * window.devicePixelRatio),
-  )
-  const targetY = average(
-    touches.map(item => item.clientY * window.devicePixelRatio),
-  )
+function handleTouchMove(event: PointerEvent) {
+  const targetX = event.clientX * window.devicePixelRatio
+  const targetY = event.clientY * window.devicePixelRatio
   state.targetX = targetX
   state.targetY = targetY
 }
 
-function handleTouchEnd(event: TouchEvent) {
+function handleTouchEnd(event: PointerEvent) {
   state.running = false
 }
 
@@ -177,9 +163,9 @@ onMounted(() => {
     v-once
     ref="canvas"
     class="canvas"
-    @touchstart.prevent.stop="handleTouchStart"
-    @touchmove.prevent.stop="handleTouchMove"
-    @touchend.prevent.stop="handleTouchEnd"
+    @pointerdown.prevent.stop="handleTouchStart"
+    @pointermove.prevent.stop="handleTouchMove"
+    @pointerup.prevent.stop="handleTouchEnd"
   ></canvas>
 </template>
 

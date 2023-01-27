@@ -34,8 +34,7 @@ async function loop() {
     scores.map(score => play(score, {
       context,
       signal: controller!.signal,
-      type: 'square',
-      volume: 0.1,
+      gain: 0.2,
     })),
   )
   return loop()
